@@ -57,7 +57,7 @@ public class Decorated {
      * @throws java.lang.IllegalArgumentException If {@code object} is already
      * an instance of {@link org.fedoraproject.javapackages.validator.spi.Decorated}.
      */
-    protected static Decorated from(Object object, Decoration decoration) {
+    public static Decorated custom(Object object, Decoration decoration) {
         if (object instanceof Decorated) {
             throw new IllegalArgumentException("Object is already decorated");
         }
@@ -65,24 +65,27 @@ public class Decorated {
     }
 
     /**
-     * Decorate an object using custom decorations.
-     * @param object An object to decorate, must not be an instance of
+     * Decorate an object using no decorations.
+     * @param object Object to wrap. {@code object} must not be an instance of
      * {@link org.fedoraproject.javapackages.validator.spi.Decorated}.
      * Can be {@code null}.
-     * @param decoration Decorations applied to {@code object}.
      * @return A decorated instance of {@code object}.
+     * @throws java.lang.IllegalArgumentException If {@code object} is already
+     * an instance of {@link org.fedoraproject.javapackages.validator.spi.Decorated}.
      */
-    public static Decorated custom(Object object, Decoration decoration) {
-        return from(object, decoration);
+    public static Decorated plain(Object object) {
+        return custom(object, Decoration.NONE);
     }
 
     /**
      * Decorate an RPM file object using unified decorating scheme.
      * @param rpm Object to decorate.
      * @return A decorated instance of {@code rpm}.
+     * @throws java.lang.IllegalArgumentException If {@code object} is already
+     * an instance of {@link org.fedoraproject.javapackages.validator.spi.Decorated}.
      */
     public static Decorated rpm(Object rpm) {
-        return from(rpm, DECORATION_RPM);
+        return custom(rpm, DECORATION_RPM);
     }
 
     /**
@@ -92,9 +95,11 @@ public class Decorated {
      * of {@link org.fedoraproject.javapackages.validator.spi.Decorated}.
      * Can be {@code null}.
      * @return A decorated instance of {@code actual}.
+     * @throws java.lang.IllegalArgumentException If {@code object} is already
+     * an instance of {@link org.fedoraproject.javapackages.validator.spi.Decorated}.
      */
     public static Decorated actual(Object actual) {
-        return from(actual, DECORATION_ACTUAL);
+        return custom(actual, DECORATION_ACTUAL);
     }
 
     /**
@@ -104,9 +109,11 @@ public class Decorated {
      * must not be an instance of {@link org.fedoraproject.javapackages.validator.spi.Decorated}.
      * Can be {@code null}.
      * @return A decorated instance of {@code expected}.
+     * @throws java.lang.IllegalArgumentException If {@code object} is already
+     * an instance of {@link org.fedoraproject.javapackages.validator.spi.Decorated}.
      */
     public static Decorated expected(Object expected) {
-        return from(expected, DECORATION_EXPECTED);
+        return custom(expected, DECORATION_EXPECTED);
     }
 
     /**
@@ -117,9 +124,11 @@ public class Decorated {
      * instance of {@link org.fedoraproject.javapackages.validator.spi.Decorated}.
      * Can be {@code null}.
      * @return A decorated instance of {@code struct}.
+     * @throws java.lang.IllegalArgumentException If {@code object} is already
+     * an instance of {@link org.fedoraproject.javapackages.validator.spi.Decorated}.
      */
     public static Decorated struct(Object struct) {
-        return from(struct, DECORATION_STRUCT);
+        return custom(struct, DECORATION_STRUCT);
     }
 
     /**
@@ -130,20 +139,11 @@ public class Decorated {
      * {@link org.fedoraproject.javapackages.validator.spi.Decorated}.
      * Can be {@code null}.
      * @return A decorated instance of {@code outer}.
+     * @throws java.lang.IllegalArgumentException If {@code object} is already
+     * an instance of {@link org.fedoraproject.javapackages.validator.spi.Decorated}.
      */
     public static Decorated outer(Object outer) {
-        return from(outer, DECORATION_OUTER);
-    }
-
-    /**
-     * Decorate an object using no decorations.
-     * @param object Object to wrap. {@code object} must not be an instance of
-     * {@link org.fedoraproject.javapackages.validator.spi.Decorated}.
-     * Can be {@code null}.
-     * @return A decorated instance of {@code object}.
-     */
-    public static Decorated plain(Object object) {
-        return from(object, Decoration.NONE);
+        return custom(outer, DECORATION_OUTER);
     }
 
     /**
