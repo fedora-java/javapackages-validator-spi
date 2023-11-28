@@ -38,20 +38,30 @@ public class Decorated {
 
     /**
      * Decorate an object using custom decorations.
+     * @param object The string representation of {@code object}.
+     * Can be {@code null}.
+     * @param decoration Decoration applied to {@code object}.
+     */
+    protected Decorated(String object, Decoration decoration) {
+        this.object = object;
+        this.decoration = decoration;
+    }
+
+    /**
+     * Decorate an object using custom decorations.
      * @param object An object to decorate, must not be an instance of
      * {@link org.fedoraproject.javapackages.validator.spi.Decorated}.
      * Can be {@code null}.
      * @param decoration Decoration applied to {@code object}.
-     * Can be {@code null}.
+     * @return A decorated instance wrapping {@code object} using {@code decoration}.
      * @throws java.lang.IllegalArgumentException If {@code object} is already
      * an instance of {@link org.fedoraproject.javapackages.validator.spi.Decorated}.
      */
-    protected Decorated(Object object, Decoration decoration) {
+    protected static Decorated from(Object object, Decoration decoration) {
         if (object instanceof Decorated) {
             throw new IllegalArgumentException("Object is already decorated");
         }
-        this.object = Objects.toString(object);
-        this.decoration = decoration;
+        return new Decorated(Objects.toString(object), decoration);
     }
 
     /**
@@ -63,7 +73,7 @@ public class Decorated {
      * @return A decorated instance of {@code object}.
      */
     public static Decorated custom(Object object, Decoration decoration) {
-        return new Decorated(object, decoration);
+        return from(object, decoration);
     }
 
     /**
@@ -72,7 +82,7 @@ public class Decorated {
      * @return A decorated instance of {@code rpm}.
      */
     public static Decorated rpm(Object rpm) {
-        return new Decorated(rpm, DECORATION_RPM);
+        return from(rpm, DECORATION_RPM);
     }
 
     /**
@@ -84,7 +94,7 @@ public class Decorated {
      * @return A decorated instance of {@code actual}.
      */
     public static Decorated actual(Object actual) {
-        return new Decorated(actual, DECORATION_ACTUAL);
+        return from(actual, DECORATION_ACTUAL);
     }
 
     /**
@@ -96,7 +106,7 @@ public class Decorated {
      * @return A decorated instance of {@code expected}.
      */
     public static Decorated expected(Object expected) {
-        return new Decorated(expected, DECORATION_EXPECTED);
+        return from(expected, DECORATION_EXPECTED);
     }
 
     /**
@@ -109,7 +119,7 @@ public class Decorated {
      * @return A decorated instance of {@code struct}.
      */
     public static Decorated struct(Object struct) {
-        return new Decorated(struct, DECORATION_STRUCT);
+        return from(struct, DECORATION_STRUCT);
     }
 
     /**
@@ -122,7 +132,7 @@ public class Decorated {
      * @return A decorated instance of {@code outer}.
      */
     public static Decorated outer(Object outer) {
-        return new Decorated(outer, DECORATION_OUTER);
+        return from(outer, DECORATION_OUTER);
     }
 
     /**
@@ -133,7 +143,7 @@ public class Decorated {
      * @return A decorated instance of {@code object}.
      */
     public static Decorated plain(Object object) {
-        return new Decorated(object, Decoration.NONE);
+        return from(object, Decoration.NONE);
     }
 
     /**
@@ -145,8 +155,8 @@ public class Decorated {
     }
 
     /**
-     * Get a copy of the decorations of this instance.
-     * @return A copy of the decorations of this instance.
+     * Get the decoration of this instance.
+     * @return The decoration of this instance.
      */
     public Decoration getDecoration() {
         return decoration;
