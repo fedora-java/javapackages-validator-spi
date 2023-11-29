@@ -1,0 +1,64 @@
+[.text-justify]
+= Javapackages-validator-spi
+:source-highlighter: rouge
+
+This project contains the interface for using https://github.com/fedora-java/javapackages-validator[_javapackages-validator_].
+
+== Building
+Build uses Maven.
+You need to use a JDK of version at least 21.
+
+----
+$ mvn install
+----
+
+== Custom validators
+
+=== Validator
+A custom validator must inherit from the `org.fedoraproject.javapackages.validator.spi.Validator` class and have its name listed in the service file on the class path of the program.
+Custom validators can override functions:
+
+`String getTestName()`::
+The name of the test.
+Names of different tests must be unique and must start with a `/`.
+
+`Result validate(Iterable<RpmPackage> rpms, List<String> args)`::
+Validate the RPM files and produce a <<_result>> describing what was checked.
+The validator is supposed fill its result with log entries as it is being executed.
+The list of arguments `args` is passed whether from command line or from a configuration file.
+This function should wrap any thrown exceptions in the returned result as the `error` log entry.
+For details, see the section <<_result_states>>.
+
+=== Result
+The result of validator execution. Must implement the following methods:
+
+`TestResult getResult()`::
+The state of this result as described in <<_result_states>>.
+
+`Iterator<LogEntry> iterator()`::
+A method for accessing the log entries of this result.
+
+[#_result_states]
+.Result states
+[horizontal]
+`skip`::
+Validator was not executed.
+
+`pass`::
+All validator checks passed.
+
+`info`::
+Validator provided some informational message.
+For example the values of some attributes of the RPM.
+This can also mean that the property being tested was not present in the RPM.
+
+`warn`::
+Validator ran successfully but some non-essential routine failed.
+
+`fail`::
+Some validator checks failed.
+
+`error`::
+An error occured, which prevented the validator from running.
+For example invalid input or an unexpected state.
+[horizontal!]
