@@ -29,6 +29,7 @@ The list of arguments `args` is passed whether from command line or from a confi
 This function should wrap any thrown exceptions in the returned result as the `error` log entry.
 For details, see the section <<_result_states>>.
 
+[#_result]
 === Result
 The result of validator execution. Must implement the following methods:
 
