@@ -8,12 +8,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/x
   <version>2.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   
-  <licenses>
-    <license>
-      <name>Apache Software License, Version 2.0</name>
-      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
-    </license>
-  </licenses>
+  <name>Javapackages validator SPI</name>
+  <url>https://github.com/fedora-java/javapackages-validator-spi/</url>
+  <description>
+    The Service Provider Interface to Javapackages-validator.
+  </description>
   
   <scm>
     <url>https://github.com/fedora-java/javapackages-validator-spi</url>
@@ -28,6 +27,13 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/x
       <email>mkoncek@redhat.com</email>
     </developer>
   </developers>
+  
+  <licenses>
+    <license>
+      <name>Apache Software License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+    </license>
+  </licenses>
   
   <distributionManagement>
     <snapshotRepository>
