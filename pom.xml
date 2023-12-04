@@ -15,6 +15,12 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/x
     </license>
   </licenses>
   
+  <scm>
+    <url>https://github.com/fedora-java/javapackages-validator-spi</url>
+    <developerConnection>scm:git:git@github.com:fedora-java/javapackages-validator-spi.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+  
   <developers>
     <developer>
       <id>mkoncek</id>
