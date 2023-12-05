@@ -4,7 +4,7 @@
   
   <groupId>io.github.fedora-java</groupId>
   <artifactId>javapackages-validator-spi</artifactId>
-  <version>2.0.1-SNAPSHOT</version>
+  <version>2.1.0</version>
   <packaging>jar</packaging>
   
   <name>Javapackages validator SPI</name>
@@ -16,7 +16,7 @@
   <scm>
     <url>https://github.com/fedora-java/javapackages-validator-spi</url>
     <developerConnection>scm:git:git@github.com:fedora-java/javapackages-validator-spi.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>2.1.0</tag>
   </scm>
   
   <developers>
