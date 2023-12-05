@@ -3,6 +3,7 @@ package org.fedoraproject.javapackages.validator.spi;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -53,12 +54,36 @@ public class ResultBuilder {
     }
 
     /**
+     * Get the current result type.
+     * @return The current result type.
+     */
+    public TestResult getResult() {
+        return result;
+    }
+
+    /**
+     * Get the whole log of this builder.
+     * @return The current log.
+     */
+    public List<LogEntry> getLog() {
+        return Collections.unmodifiableList(log);
+    }
+
+    /**
+     * Set the result type.
+     * @param result The result to set.
+     */
+    public void setResult(TestResult result) {
+        this.result = result;
+    }
+
+    /**
      * Merge the current result with the provided result.
      * @param result The value to merge with.
      */
-    public void addResult(TestResult result) {
+    public void mergeResult(TestResult result) {
         if (result.compareTo(this.result) > 0) {
-            this.result = result;
+            setResult(result);
         }
     }
 
@@ -81,14 +106,6 @@ public class ResultBuilder {
     }
 
     /**
-     * Merge the current result with the result of type
-     * {@link org.fedoraproject.javapackages.validator.spi.TestResult#skip}
-     */
-    public void skip() {
-        addResult(TestResult.skip);
-    }
-
-    /**
      *
      * Merge the current result with the result of type
      * {@link org.fedoraproject.javapackages.validator.spi.TestResult#skip} and add
@@ -97,16 +114,8 @@ public class ResultBuilder {
      * @param objects Objects to fill the pattern with.
      */
     public void skip(String pattern, Decorated... objects) {
-        skip();
+        mergeResult(TestResult.skip);
         addLog(LogEntry.skip(pattern, objects));
-    }
-
-    /**
-     * Merge the current result with the result of type
-     * {@link org.fedoraproject.javapackages.validator.spi.TestResult#pass}
-     */
-    public void pass() {
-        addResult(TestResult.pass);
     }
 
     /**
@@ -117,16 +126,8 @@ public class ResultBuilder {
      * @param objects Objects to fill the pattern with.
      */
     public void pass(String pattern, Decorated... objects) {
-        pass();
+        mergeResult(TestResult.pass);
         addLog(LogEntry.pass(pattern, objects));
-    }
-
-    /**
-     * Merge the current result with the result of type
-     * {@link org.fedoraproject.javapackages.validator.spi.TestResult#info}
-     */
-    public void info() {
-        addResult(TestResult.info);
     }
 
     /**
@@ -137,16 +138,8 @@ public class ResultBuilder {
      * @param objects Objects to fill the pattern with.
      */
     public void info(String pattern, Decorated... objects) {
-        info();
+        mergeResult(TestResult.info);
         addLog(LogEntry.info(pattern, objects));
-    }
-
-    /**
-     * Merge the current result with the result of type
-     * {@link org.fedoraproject.javapackages.validator.spi.TestResult#warn}
-     */
-    public void warn() {
-        addResult(TestResult.warn);
     }
 
     /**
@@ -157,16 +150,8 @@ public class ResultBuilder {
      * @param objects Objects to fill the pattern with.
      */
     public void warn(String pattern, Decorated... objects) {
-        warn();
+        mergeResult(TestResult.warn);
         addLog(LogEntry.warn(pattern, objects));
-    }
-
-    /**
-     * Merge the current result with the result of type
-     * {@link org.fedoraproject.javapackages.validator.spi.TestResult#fail}
-     */
-    public void fail() {
-        addResult(TestResult.fail);
     }
 
     /**
@@ -177,16 +162,8 @@ public class ResultBuilder {
      * @param objects Objects to fill the pattern with.
      */
     public void fail(String pattern, Decorated... objects) {
-        fail();
+        mergeResult(TestResult.fail);
         addLog(LogEntry.fail(pattern, objects));
-    }
-
-    /**
-     * Merge the current result with the result of type
-     * {@link org.fedoraproject.javapackages.validator.spi.TestResult#error}
-     */
-    public void error() {
-        addResult(TestResult.error);
     }
 
     /**
@@ -197,7 +174,7 @@ public class ResultBuilder {
      * @param objects Objects to fill the pattern with.
      */
     public void error(String pattern, Decorated... objects) {
-        error();
+        mergeResult(TestResult.error);
         addLog(LogEntry.error(pattern, objects));
     }
 
@@ -209,7 +186,7 @@ public class ResultBuilder {
      * @param ex The exception to log.
      */
     public void error(Throwable ex) {
-        error();
+        mergeResult(TestResult.error);
         var writer = new StringWriter();
         ex.printStackTrace(new PrintWriter(writer));
         addLog(LogEntry.error("An exception occured:{0}{1}",
