@@ -1,6 +1,7 @@
 package org.fedoraproject.javapackages.validator.spi;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * A logging event that occurred during validation.
@@ -110,5 +111,22 @@ public record LogEntry(LogEvent kind, String pattern, Decorated... objects) {
      */
     public static LogEntry error(String pattern, Decorated... objects) {
         return new LogEntry(LogEvent.error, pattern, objects);
+    }
+
+    @Override
+    public int hashCode() {
+        return 31 * Arrays.hashCode(objects) + Objects.hash(kind, pattern);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        LogEntry other = (LogEntry) obj;
+        return kind == other.kind && Arrays.equals(objects, other.objects) && Objects.equals(pattern, other.pattern);
     }
 }

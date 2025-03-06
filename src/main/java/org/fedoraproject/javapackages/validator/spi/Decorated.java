@@ -21,7 +21,7 @@ public class Decorated {
     /**
     * Decoration used for values expected to be found during validation.
     */
-   protected static final Decoration DECORATION_EXPECTED = new Decoration(Decoration.Color.cyan, Decoration.Modifier.bright);
+    protected static final Decoration DECORATION_EXPECTED = new Decoration(Decoration.Color.cyan, Decoration.Modifier.bright);
 
     /**
      * Decoration used for class names.
@@ -160,5 +160,22 @@ public class Decorated {
      */
     public Decoration getDecoration() {
         return decoration;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(decoration, object);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Decorated other = (Decorated) obj;
+        return Objects.equals(decoration, other.decoration) && Objects.equals(object, other.object);
     }
 }

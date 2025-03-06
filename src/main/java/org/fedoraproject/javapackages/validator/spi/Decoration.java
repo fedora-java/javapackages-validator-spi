@@ -1,6 +1,7 @@
 package org.fedoraproject.javapackages.validator.spi;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -106,5 +107,22 @@ public record Decoration(Optional<Color> color, Modifier... modifiers) {
          * Bright modifier.
          */
         bright,
+    }
+
+    @Override
+    public int hashCode() {
+        return 31 * Arrays.hashCode(modifiers) + Objects.hash(color);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Decoration other = (Decoration) obj;
+        return Objects.equals(color, other.color) && Arrays.equals(modifiers, other.modifiers);
     }
 }
