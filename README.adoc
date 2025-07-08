@@ -1,3 +1,8 @@
+link:https://github.com/fedora-java/javapackages-validator-spi/actions/workflows/ci.yml?query=branch%3Amain[image:https://img.shields.io/github/actions/workflow/status/fedora-java/javapackages-validator-spi/ci.yml?branch=main[build status]]
+link:https://www.apache.org/licenses/LICENSE-2.0[image:https://img.shields.io/github/license/fedora-java/javapackages-validator-spi.svg?label=License[License]]
+link:https://search.maven.org/artifact/io.github.fedora-java/javapackages-validator-spi[image:https://img.shields.io/maven-central/v/io.github.fedora-java/javapackages-validator-spi.svg?label=Maven%20Central[Maven Central version]]
+link:https://javadoc.io/doc/io.github.fedora-java/javapackages-validator-spi[image:https://javadoc.io/badge2/io.github.fedora-java/javapackages-validator-spi/javadoc.svg[Javadoc]]
+
 [.text-justify]
 = Javapackages-validator-spi
 :source-highlighter: rouge
